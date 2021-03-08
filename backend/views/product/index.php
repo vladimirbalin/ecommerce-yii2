@@ -26,12 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'description:ntext',
-            'image',
-            'price',
+            [
+                'attribute' => 'name',
+                'format' => 'html',
+                'value' => function($model){
+                    return Html::a($model->name, ['product/view', 'id' => $model->id]);
+                }
+            ],
+            'description:html',
+            [
+                'attribute' => 'imageUrl',
+                'label' => 'Image',
+                'format' => ['image', ['height' => 100]],
+            ],
+            'price:currency',
             //'status',
             //'created_at',
             //'updated_at',

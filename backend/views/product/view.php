@@ -32,8 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'description:ntext',
-            'image',
-            'price',
+            [
+                'attribute' => 'imageUrl',
+                'format' => ['image', ['height' => 200]]
+            ],
+            'price:currency',
             'status',
             'created_at',
             'updated_at',
