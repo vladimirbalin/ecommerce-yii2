@@ -357,7 +357,6 @@ AppAsset::register($this);
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
                 <?= Html::a('Logout', ['site/logout'], ['class' => 'btn btn-primary', 'data' => ['method' => 'post']]) ?>
-<!--                <a class="btn btn-primary" href="login.html">Logout</a>-->
             </div>
         </div>
     </div>
