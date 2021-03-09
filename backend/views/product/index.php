@@ -36,16 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:html',
             [
                 'attribute' => 'imageUrl',
-                'label' => 'Image',
-                'format' => ['image', ['height' => 100]],
+                'label' => 'Product Image',
+                'format' => ['image', ['height' => 100, 'weight' => 100]],
             ],
             'price:currency',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
-
+            'status',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

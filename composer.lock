@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c94f194a38351c2b6a5d2ba53a009050",
+    "content-hash": "0724bec3b3fa2b6ea56bc1c0f79c3ecf",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -72,7 +72,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -93,7 +93,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -5622,7 +5622,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": ">=7.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

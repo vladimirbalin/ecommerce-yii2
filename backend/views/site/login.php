@@ -24,14 +24,24 @@ $this->title = 'Login';
                                 <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                             </div>
                             <?php $form = ActiveForm::begin(['options' => ['class' => 'user']]) ?>
-                            <?= $form->field($model, 'username')->textInput(['placeholder' => 'Enter username...', 'class' => 'form-control form-control-user'])->label(false) ?>
-                            <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Password', 'class' => 'form-control form-control-user'])->label(false) ?>
+                            <?= $form->field($model, 'username')->textInput([
+                                'placeholder' => 'Enter username...',
+                                'class' => 'form-control form-control-user'])
+                                ->label(false) ?>
+                            <?= $form->field($model, 'password')->passwordInput([
+                                'placeholder' => 'Password',
+                                'class' => 'form-control form-control-user'])
+                                ->label(false) ?>
                             <?= $form->field($model, 'rememberMe', [
                                 'labelOptions' => ['class' => 'custom-control-label control-label'],
-                                'template' => "<div class='custom-control custom-checkbox small'>{input}\n{label}\n{hint}\n{error}</div>"
-                            ])->checkbox(['class' => 'custom-control-input'], false) ?>
+                                'template' => "<div class='custom-control custom-checkbox small'>
+                                                {input}\n{label}\n{hint}\n{error}
+                                                </div>"])
+                                ->checkbox(['class' => 'custom-control-input'], false) ?>
                             <div class="form-group">
-                                <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-user btn-block', 'name' => 'login-button']) ?>
+                                <?= Html::submitButton('Login', [
+                                    'class' => 'btn btn-primary btn-user btn-block',
+                                    'name' => 'login-button']) ?>
                             </div>
                             <?php ActiveForm::end() ?>
                             <hr>

@@ -14,7 +14,7 @@ class ProductSearch extends Product
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['id', 'price', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
