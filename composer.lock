@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0724bec3b3fa2b6ea56bc1c0f79c3ecf",
+    "content-hash": "67488e6f55eb03a59de33ff206880577",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -576,27 +576,26 @@
         },
         {
             "name": "kartik-v/yii2-widget-fileinput",
-            "version": "dev-master",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-fileinput.git",
-                "reference": "e15d65047af23a3cf25e47e8c23444e750a27f2c"
+                "reference": "fcf5bf41fac35363d3f24a01a34f228c2534c7b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/e15d65047af23a3cf25e47e8c23444e750a27f2c",
-                "reference": "e15d65047af23a3cf25e47e8c23444e750a27f2c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/fcf5bf41fac35363d3f24a01a34f228c2534c7b7",
+                "reference": "fcf5bf41fac35363d3f24a01a34f228c2534c7b7",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/bootstrap-fileinput": ">=5.0.0",
                 "kartik-v/yii2-krajee-base": ">=2.0.0"
             },
-            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -632,13 +631,7 @@
                 "issues": "https://github.com/kartik-v/yii2-widget-fileinput/issues",
                 "source": "https://github.com/kartik-v/yii2-widget-fileinput/tree/master"
             },
-            "funding": [
-                {
-                    "url": "https://opencollective.com/yii2-widget-fileinput",
-                    "type": "open_collective"
-                }
-            ],
-            "time": "2020-12-05T15:43:43+00:00"
+            "time": "2019-04-19T11:45:08+00:00"
         },
         {
             "name": "mohorev/yii2-upload-behavior",
@@ -5616,9 +5609,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "kartik-v/yii2-widget-fileinput": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

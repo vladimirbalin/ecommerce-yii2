@@ -1,8 +1,9 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,19 +30,45 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'name',
                 'format' => 'html',
-                'value' => function($model){
+                'value' => function ($model) {
                     return Html::a($model->name, ['product/view', 'id' => $model->id]);
-                }
+                },
+                'headerOptions' => ['style' => 'width:200px'],
             ],
-            'description:html',
             [
                 'attribute' => 'imageUrl',
                 'label' => 'Product Image',
                 'format' => ['image', ['height' => 100, 'weight' => 100]],
             ],
-            'price:currency',
-            'status',
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    $searchModel->statusList,
+                    ['prompt' => 'All', 'class' => 'form-control']),
+                'value' => function ($model) {
+                    return Html::tag('span',
+                        $model->status ? 'Published' : 'Not Published',
+                        ['class' => $model->status ? "badge badge-success" : "badge badge-danger"]);
+                },
+                'format' => 'html',
+                'headerOptions' => ['style' => 'width:50px'],
+            ],
+            ['attribute' => 'price',
+                'format' => 'currency',
+                'headerOptions' => ['style' => 'width:50px'],
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => 'datetime'
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => 'datetime'
+            ],
+            ['class' => 'backend\grid\ActionColumn',
+                'template' => '{delete}'],
         ],
     ]); ?>
 

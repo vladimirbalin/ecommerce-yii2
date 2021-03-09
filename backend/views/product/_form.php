@@ -2,23 +2,12 @@
 
 use dosamigos\ckeditor\CKEditor;
 use kartik\file\FileInput;
-use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
 /* @var $form yii\bootstrap4\ActiveForm */
-?>
-<?php $registerJs = <<<JS
-$("button[type='submit']").on( "click", function() {
-       setTimeout(function (){
-            if($('#product-image').hasClass('is-invalid')){
-            $('input:hidden[name="Product[image]"]').addClass('is-invalid');
-        }
-       }, 1000)
-});
-JS;
-$this->registerJs($registerJs);
 ?>
 <div class="product-form">
 
@@ -39,29 +28,30 @@ $this->registerJs($registerJs);
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'price')->textInput() ?>
-            <?= $form->field($model, 'image')->widget(FileInput::class, [
-                'options' => [
-                    'accept' => 'image/*',
-                    'multiple' => false,
-                ],
-                'pluginOptions' => [
-                    'showCaption' => false,
-                    'showRemove' => true,
-                    'showUpload' => false,
-                    'showClose' => false,
-                    'browseClass' => 'btn btn-primary',
-                    'browseLabel' => 'Select Photo',
-                    'initialPreview' => $model->image ? $model->imageUrl : false,
-                    'initialPreviewAsData' => true,
-                    'initialPreviewConfig' => $model->image ? [['caption' => $model->image]] : [],
-                    'layoutTemplates' => ['actionDelete' => '', 'actionDrag' => ''],
-                    'theme' => 'fa',
-                ],
-            ]) ?>
+            <?= $form->field($model, 'image',
+                ['errorOptions' => ['style' => 'display:block;']])
+                ->widget(FileInput::class, [
+                    'options' => [
+                        'accept' => 'image/*',
+                        'multiple' => false
+                    ],
+                    'pluginOptions' => [
+                        'showCaption' => false,
+                        'showRemove' => false,
+                        'showUpload' => false,
+                        'showClose' => false,
+                        'showCancel' => false,
+                        'browseClass' => 'btn btn-primary btn-block',
+                        'browseLabel' => 'Select Photo',
+                        'initialPreview' => $model->image ? $model->imageUrl : false,
+                        'initialPreviewAsData' => true,
+                        'initialPreviewConfig' => $model->image ? [['caption' => $model->image]] : [],
+                        'layoutTemplates' => ['actionDelete' => '', 'actionDrag' => '']
+                    ]
+                ]) ?>
         </div>
     </div>
-    <?= $form->field($model, 'status')->checkbox() ?>
-
+    <?= $form->field($model, 'status')->radioList(['Unpublished', 'Published']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
