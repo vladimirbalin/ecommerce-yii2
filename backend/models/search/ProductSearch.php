@@ -73,9 +73,4 @@ class ProductSearch extends Product
 
         return $dataProvider;
     }
-
-    public function getStatusList(): array
-    {
-        return ['Not Published','Published'];
-    }
 }

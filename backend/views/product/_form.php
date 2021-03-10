@@ -25,9 +25,9 @@ use yii\helpers\Html;
                     ['name' => 'others', 'groups' => ['others', 'about']],
                 ]]
             ]) ?>
+            <?= $form->field($model, 'price')->textInput() ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'price')->textInput() ?>
             <?= $form->field($model, 'image',
                 ['errorOptions' => ['style' => 'display:block;']])
                 ->widget(FileInput::class, [
@@ -51,12 +51,11 @@ use yii\helpers\Html;
                 ]) ?>
         </div>
     </div>
-    <?= $form->field($model, 'status')->radioList(['Unpublished', 'Published']) ?>
+    <?= $form->field($model, 'status')->radioList(['Not Published', 'Published']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
-
 
     <?php ActiveForm::end(); ?>
 

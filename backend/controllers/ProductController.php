@@ -2,12 +2,11 @@
 
 namespace backend\controllers;
 
-use Yii;
-use common\models\Product;
 use backend\models\search\ProductSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use common\models\Product;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -50,10 +49,14 @@ class ProductController extends BaseController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->refresh();
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

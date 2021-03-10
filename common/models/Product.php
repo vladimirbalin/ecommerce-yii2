@@ -156,8 +156,14 @@ class Product extends \yii\db\ActiveRecord
     {
         return new \common\models\query\ProductQuery(get_called_class());
     }
-    public function getImageUrl()
+
+    public function getImageUrl(): string
     {
-        return $this->getUploadUrl('image');
+        return $this->getUploadUrl('image') ?? '@frontendUrl/img/no-image.png';
+    }
+
+    public function getStatusList(): array
+    {
+        return ['Not Published', 'Published'];
     }
 }
