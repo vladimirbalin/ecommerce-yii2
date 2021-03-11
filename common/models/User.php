@@ -12,6 +12,8 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $login
+ * @property string $firstname
+ * @property string $lastname
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $verification_token
@@ -80,7 +82,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string login
      * @return static|null
      */
-    public static function findByUsername($login)
+    public static function findByLogin($login)
     {
         return static::findOne(['login' => $login, 'status' => self::STATUS_ACTIVE]);
     }
@@ -210,8 +212,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function getDisplayName()
+    /**
+     * Get both first and last name of the user, or just login name
+     * @return string
+     */
+    public function getDisplayName(): string
     {
-        return $this->login;
+        $fullName = trim("$this->firstname $this->lastname");
+        return $fullName ?: $this->login;
     }
 }

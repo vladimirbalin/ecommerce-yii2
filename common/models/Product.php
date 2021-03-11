@@ -163,16 +163,29 @@ class Product extends \yii\db\ActiveRecord
         return $this->getUploadUrl('image') ?? '@frontendUrl/img/no-image.png';
     }
 
+    /**
+     * Get array of statuses of the 'product' table
+     * @return string[]
+     */
     public function getStatusList(): array
     {
         return ['Not Published', 'Published'];
     }
 
+    /**
+     * Get short description of the product
+     * @return string
+     */
     public function getTruncatedDescription(): string
     {
         return StringHelper::truncateWords(strip_tags($this->description), 20);
     }
 
+    /**
+     * Get price as currency
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
     public function getPriceLabel(): string
     {
         return \Yii::$app->formatter->asCurrency($this->price);

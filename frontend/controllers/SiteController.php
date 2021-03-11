@@ -11,10 +11,13 @@ use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\bootstrap4\ActiveForm;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -24,6 +27,22 @@ class SiteController extends Controller
     public function behaviors(): array
     {
         $behaviors = parent::behaviors();
+        $behaviors['access'] = [
+            'class' => AccessControl::class,
+            'only' => ['logout', 'signup'],
+            'rules' => [
+                [
+                    'actions' => ['signup'],
+                    'allow' => true,
+                    'roles' => ['?'],
+                ],
+                [
+                    'actions' => ['logout'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+            ],
+        ];
         $behaviors['verbs'] = [
             'class' => VerbFilter::class,
             'actions' => [
@@ -107,6 +126,10 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();

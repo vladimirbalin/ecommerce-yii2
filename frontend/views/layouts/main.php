@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use common\widgets\Alert;
@@ -42,13 +43,11 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
+        $menuItems[] = '<li>' .
+            Html::a('Logout (' . Yii::$app->user->identity->displayName . ')', ['site/logout'], [
+                'data-method' => 'post',
+                'class' => 'btn btn-link nav-link border-0'
+            ])
             . '</li>';
     }
     echo Nav::widget([
