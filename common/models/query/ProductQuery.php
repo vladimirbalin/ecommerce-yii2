@@ -31,4 +31,12 @@ class ProductQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /**
+     * @return ProductQuery
+     */
+    public function published(): ProductQuery
+    {
+        return parent::andWhere(['status' => 1]);
+    }
 }

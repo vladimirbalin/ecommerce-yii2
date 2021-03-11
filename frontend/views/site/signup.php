@@ -1,11 +1,11 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,11 +15,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>Please fill out the following fields to signup:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+    <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <div class="row">
+        <div class="col-lg-5 col-sm-12 mx-auto">
+            <?= $form->field($model, 'login')->textInput(['autofocus' => true]) ?>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <?= $form->field($model, 'firstname')->textInput(['autofocus' => true]) ?>
+                </div>
+                <div class="col-sm-6">
+                    <?= $form->field($model, 'lastname')->textInput(['autofocus' => true]) ?>
+                </div>
+            </div>
 
                 <?= $form->field($model, 'email') ?>
 
@@ -29,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>
 
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>

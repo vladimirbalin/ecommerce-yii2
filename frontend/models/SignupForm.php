@@ -1,16 +1,18 @@
 <?php
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
 use yii\base\Model;
-use common\models\User;
 
 /**
  * Signup form
  */
 class SignupForm extends Model
 {
-    public $username;
+    public $firstname;
+    public $lastname;
+    public $login;
     public $email;
     public $password;
 
@@ -21,10 +23,16 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['login', 'trim'],
+            ['login', 'required'],
+            ['login', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This login has already been taken.'],
+            ['login', 'string', 'min' => 2, 'max' => 255],
+
+            ['firstname', 'required'],
+            ['firstname', 'string', 'max' => 255],
+
+            ['lastname', 'required'],
+            ['lastname', 'string', 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
@@ -49,7 +57,9 @@ class SignupForm extends Model
         }
         
         $user = new User();
-        $user->username = $this->username;
+        $user->login = $this->login;
+        $user->firstname = $this->firstname;
+        $user->lastname = $this->lastname;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
@@ -63,7 +73,7 @@ class SignupForm extends Model
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
+    protected function sendEmail(User $user)
     {
         return Yii::$app
             ->mailer

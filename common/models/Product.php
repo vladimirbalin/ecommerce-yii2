@@ -6,6 +6,7 @@ namespace common\models;
 use mohorev\file\UploadBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\StringHelper;
 
 /**
  * This is the model class for table "{{%product}}".
@@ -165,5 +166,15 @@ class Product extends \yii\db\ActiveRecord
     public function getStatusList(): array
     {
         return ['Not Published', 'Published'];
+    }
+
+    public function getTruncatedDescription(): string
+    {
+        return StringHelper::truncateWords(strip_tags($this->description), 20);
+    }
+
+    public function getPriceLabel(): string
+    {
+        return \Yii::$app->formatter->asCurrency($this->price);
     }
 }
