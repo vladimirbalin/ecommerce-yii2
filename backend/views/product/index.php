@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin([]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'name',
                 'format' => 'html',
-                'value' => function ($model) {
-                    return Html::a($model->name, ['product/view', 'id' => $model->id]);
+                'content' => function ($model) {
+                    return Html::a($model->name, ['/product/view', 'id' => $model->id], ['data-pjax' => 0]);
                 },
                 'headerOptions' => ['style' => 'width:200px'],
             ],

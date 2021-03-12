@@ -6,6 +6,7 @@ use backend\models\search\ProductSearch;
 use common\models\Product;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -52,10 +53,28 @@ class ProductController extends BaseController
     public function actionView(int $id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->refresh();
+        if (Yii::$app->request->isPost) {
+            $model = $this->findModel($id);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $this->refresh();
+            }
         }
         return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionPjaxView($id): string
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new ForbiddenHttpException('You can only make ajax request on this address');
+        }
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'updated');
+        }
+        $model = $this->findModel($id);
+        return $this->renderAjax('view', [
             'model' => $model,
         ]);
     }

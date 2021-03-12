@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use Yii;
-
 /**
  * This is the model class for table "{{%user_address}}".
  *
@@ -73,5 +71,14 @@ class UserAddress extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\query\UserAddressQuery(get_called_class());
+    }
+
+    /**
+     * Get full address string of the user
+     * @return string
+     */
+    public function getFullAddress(): string
+    {
+        return "$this->address, $this->city";
     }
 }

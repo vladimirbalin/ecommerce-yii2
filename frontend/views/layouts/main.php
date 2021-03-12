@@ -43,12 +43,18 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = '<li>' .
-            Html::a('Logout (' . Yii::$app->user->identity->displayName . ')', ['site/logout'], [
-                'data-method' => 'post',
-                'class' => 'btn btn-link nav-link border-0'
-            ])
-            . '</li>';
+        $menuItems[] = [
+            'label' => 'Hello, ' . Yii::$app->user->identity->getDisplayName(),
+            'items' => [
+                ['label' => 'Profile', 'url' => ['/profile/index']],
+                ['label' => 'Logout',
+                    'url' => ['site/logout'],
+                    'linkOptions' => ['data-method' => 'post',
+                        'class' => 'btn btn-link border-0']
+                ]
+            ],
+            'dropdownOptions' => ['class' => 'dropdown-menu-right']
+        ];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],

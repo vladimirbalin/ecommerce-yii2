@@ -56,7 +56,7 @@ AppAsset::register($this);
         <!-- Nav Item - Pages Collapse Menu -->
         <?= Html::tag('li',
                 Html::a(
-                    '<i class="fas fa-fw fa-cog"></i><span>Products</span>', ['product/'],
+                    '<i class="fas fa-fw fa-cog"></i><span>Products</span>', ['product/index'],
                     ['class' => 'nav-link']
                 ),
             ['class' => get_class($this->context) === ProductController::class ? 'nav-item active' : 'nav-item']) ?>
