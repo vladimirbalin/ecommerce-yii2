@@ -14,7 +14,6 @@ use yii\base\InvalidArgumentException;
 use yii\bootstrap4\ActiveForm;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
@@ -39,14 +38,9 @@ class SiteController extends Controller
                 [
                     'actions' => ['logout'],
                     'allow' => true,
+                    'verbs' => ['post'],
                     'roles' => ['@'],
                 ],
-            ],
-        ];
-        $behaviors['verbs'] = [
-            'class' => VerbFilter::class,
-            'actions' => [
-                'logout' => ['post'],
             ],
         ];
         return $behaviors;

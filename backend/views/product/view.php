@@ -39,9 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'imageUrl',
                     'label' => 'Product Image',
                     'format' => ['image', ['height' => 200]],
-                    'value' => function ($model) {
-                        return $model->image ? $model->imageUrl : '@frontendUrl/upload/no-image-available.jpg';
-                    }
                 ],
                 'price:currency',
                 [

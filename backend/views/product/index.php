@@ -19,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin([]); ?>
+    <?php Pjax::begin([
+        'enablePushState' => false
+    ]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -70,6 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'backend\grid\ActionColumn',
                 'template' => '{delete}'],
         ],
+        'options' => ['class' => 'text-center']
     ]); ?>
 
     <?php Pjax::end(); ?>
