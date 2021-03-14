@@ -167,6 +167,15 @@ class Product extends \yii\db\ActiveRecord
     }
 
     /**
+     * Get product image as [[Formatter::asImage($params)]]
+     * @param array $params
+     * @return string
+     */
+    public function getImage(array $params): string
+    {
+        return \Yii::$app->formatter->asImage($this->getImageUrl(), $params);
+    }
+    /**
      * Get array of statuses of the 'product' table
      * @return string[]
      */

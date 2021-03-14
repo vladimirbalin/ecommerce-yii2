@@ -21,9 +21,13 @@ $this->title = Yii::$app->name;
             <?php foreach ($model as $product): ?>
                 <?php /** @var Product $product */ ?>
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <?= Html::img($product->imageUrl, ['class' => 'card-img-top', 'alt' => $product->name]) ?>
+                    <div class="card" style="height:500px">
+                        <a href="#" style="display:contents">
+                            <?= Html::img($product->imageUrl, [
+                                'class' => 'card-img-top',
+                                'alt' => $product->name,
+                                'style' => 'object-fit:contain;max-height:50%'
+                            ]) ?>
                             <div class="card-body">
                                 <h4 class="card-title">
                                     <a href="#"><?= $product->name ?></a>
@@ -34,7 +38,12 @@ $this->title = Yii::$app->name;
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                <?= Html::a(
+                                    'Add to cart',
+                                    ['cart/add'],
+                                    ['class' => 'btn btn-danger float-right add-to-cart-btn',
+                                        'data-key' => $product->id]
+                                ) ?>
                             </div>
                     </div>
                 </div>

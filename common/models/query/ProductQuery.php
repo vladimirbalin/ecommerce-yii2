@@ -37,6 +37,11 @@ class ProductQuery extends \yii\db\ActiveQuery
      */
     public function published(): ProductQuery
     {
-        return parent::andWhere(['status' => 1]);
+        return $this->andWhere(['status' => 1]);
+    }
+
+    public function id($id): ProductQuery
+    {
+        return $this->andWhere(['id' => $id]);
     }
 }

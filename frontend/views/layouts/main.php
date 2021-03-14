@@ -26,7 +26,6 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="wrap">
     <?php
     NavBar::begin([
@@ -34,6 +33,7 @@ AppAsset::register($this);
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-dark bg-dark navbar-expand-lg',
+            'style' => 'position: sticky;top:0;z-index:100'
         ],
     ]);
     $menuItems = [
@@ -49,8 +49,10 @@ AppAsset::register($this);
                 ['label' => 'Profile', 'url' => ['/profile/index']],
                 ['label' => 'Logout',
                     'url' => ['site/logout'],
-                    'linkOptions' => ['data-method' => 'post',
-                        'class' => 'btn btn-link border-0']
+                    'linkOptions' => [
+                        'data-method' => 'post',
+                        'class' => 'btn btn-link border-0'
+                    ]
                 ]
             ],
             'dropdownOptions' => ['class' => 'dropdown-menu-right']
