@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Product Image',
                     'format' => ['image', ['height' => 200]],
                 ],
-                'price:currency',
+                'price:currencyWithDivision',
                 [
                     'attribute' => 'status',
                     'format' => 'raw',

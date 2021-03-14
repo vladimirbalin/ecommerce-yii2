@@ -36,19 +36,19 @@ AppAsset::register($this);
             'style' => 'position: sticky;top:0;z-index:100'
         ],
     ]);
+    $quantitySum = \common\models\CartItem::getCartItemsQuantitySum();
+
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => "Cart <span id='quantity-sum' class='badge badge-danger'>$quantitySum</span>",
+            'url' => ['/cart/index'],
+            'encode' => false
+        ]
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $quantitySum = \common\models\CartItem::getCartItemsQuantitySum();
-        $menuItems[] = [
-            'label' => "Cart <span id='quantity-sum' class='badge badge-danger'>$quantitySum</span>",
-            'url' => ['/cart/index'],
-            'encode' => false
-        ];
         $menuItems[] = [
             'label' => 'Hello, ' . Yii::$app->user->identity->getDisplayName(),
             'items' => [

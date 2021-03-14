@@ -25,7 +25,7 @@ use yii\helpers\Html;
                     ['name' => 'others', 'groups' => ['others', 'about']],
                 ]]
             ]) ?>
-            <?= $form->field($model, 'price')->textInput() ?>
+            <?= $form->field($model, 'price')->textInput()->label('Price: as integer') ?>
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'image',

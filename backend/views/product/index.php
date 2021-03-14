@@ -57,8 +57,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'headerOptions' => ['style' => 'width:50px'],
             ],
-            ['attribute' => 'price',
-                'format' => 'currency',
+            [
+                'attribute' => 'price',
+                'format' => 'currencyWithDivision',
                 'headerOptions' => ['style' => 'width:50px'],
             ],
             [
