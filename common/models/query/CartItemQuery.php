@@ -31,4 +31,27 @@ class CartItemQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /**
+     * Get all cart items with the corresponding id
+     * @param $id
+     * @param string $alias column alias if needed $alias.created_by for example
+     * @return CartItemQuery
+     */
+    public function userId($id, $alias = ''): CartItemQuery
+    {
+        return $alias
+            ? $this->andWhere(["$alias.created_by" => $id])
+            : $this->andWhere(["created_by" => $id]);
+    }
+
+    public function productId($id): CartItemQuery
+    {
+        return $this->andWhere(['product_id' => $id]);
+    }
+
+    public function quantitySum(): CartItemQuery
+    {
+        return $this->select('SUM(`quantity`) as `quantitySum`');
+    }
 }

@@ -43,6 +43,12 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $quantitySum = \common\models\CartItem::getCartItemsQuantitySum();
+        $menuItems[] = [
+            'label' => "Cart <span id='quantity-sum' class='badge badge-danger'>$quantitySum</span>",
+            'url' => ['/cart/index'],
+            'encode' => false
+        ];
         $menuItems[] = [
             'label' => 'Hello, ' . Yii::$app->user->identity->getDisplayName(),
             'items' => [
