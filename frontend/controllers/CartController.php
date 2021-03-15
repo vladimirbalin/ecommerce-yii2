@@ -60,8 +60,11 @@ class CartController extends \yii\web\Controller
 
         if (Yii::$app->user->isGuest) {
             $cartItems = Yii::$app->session->get(CartItem::SESSION_KEY, []);
-            if (!$cartItems || !array_key_exists($id, $cartItems)) {
-                $cartItems[$product->id] = [
+            $existingProduct = array_filter($cartItems, function ($val) use ($id) {
+                return $val['product_id'] === (int)$id;
+            });
+            if (!$cartItems || !$existingProduct) {
+                $cartItems[] = [
                     'product_id' => $product->id,
                     'name' => $product->name,
                     'image' => $product->image,
@@ -70,8 +73,10 @@ class CartController extends \yii\web\Controller
                     'sum' => $product->price
                 ];
             } else {
-                $cartItems[$id]['quantity'] = $cartItems[$id]['quantity'] + 1;
-                $cartItems[$id]['sum'] += $cartItems[$id]['price'];
+                $existingProductArr = $cartItems[array_key_first($existingProduct)];
+
+                $existingProductArr['quantity'] = $existingProductArr['quantity'] + 1;
+                $existingProductArr['sum'] += $existingProductArr['price'];
             }
             Yii::$app->session->set(CartItem::SESSION_KEY, $cartItems);
             return Yii::$app->session->get(CartItem::SESSION_KEY, []);
