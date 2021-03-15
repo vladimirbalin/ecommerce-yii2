@@ -19,6 +19,7 @@ class CartItem extends \yii\db\ActiveRecord
 {
     private $_sum;
     private $_quantitySum;
+    const SESSION_KEY = 'CART_ITEMS';
 
     /**
      * {@inheritdoc}
@@ -101,8 +102,27 @@ class CartItem extends \yii\db\ActiveRecord
         return $this->_quantitySum;
     }
 
-    public static function getCartItemsQuantitySum(): int
+    /**
+     * Returns sum of quantity of all items in cart.
+     * main layout navbar:
+     * `Cart [[cartItemsQuantitySum]]`
+     * @return mixed
+     */
+    public static function getCartItemsQuantitySum()
     {
-        return self::find()->quantitySum()->userId(Yii::$app->user->id)->scalar();
+        if(!Yii::$app->user->isGuest){
+            return self::find()->quantitySum()->userId(Yii::$app->user->id)->scalar();
+        }
+
+        $cartItems = Yii::$app->session->get(self::SESSION_KEY, []);
+        if(!$cartItems){
+            return '';
+        }
+
+        $quantity = 0;
+        foreach ($cartItems as $item){
+            $quantity += $item['quantity'];
+        }
+        return $quantity;
     }
 }

@@ -7,9 +7,11 @@ use yii\helpers\Html;
 
 ?>
 <div class="card">
+    <?php if ($cartItems): ?>
     <div class="card-header text-center">
         <h3>Your cart items</h3>
     </div>
+
     <div class="card-body">
         <table class="table table-hover">
             <thead>
@@ -25,19 +27,22 @@ use yii\helpers\Html;
             </thead>
             <tbody>
             <?php foreach ($cartItems as $cartItem): ?>
+                <?php $img = $cartItem['image']
+                    ? Html::img('@frontendUrl/upload/product/' . $cartItem['product_id'] . "/" . $cartItem['image'], ['height' => 100, 'weight' => 100])
+                    : Html::img('@frontendUrl/img/no-image.png', ['height' => 100, 'weight' => 100]);
+                ?>
                 <tr>
-                    <td><?= $cartItem->product_id; ?></td>
-                    <td><?= $cartItem->product->name; ?></td>
-                    <td><?= $cartItem->product->getImage(['height' => 100, 'weight' => 100]); ?></td>
-                    <td><?= $cartItem->product->priceLabel; ?></td>
-                    <td><?= $cartItem->quantity; ?></td>
-                    <td><?= $cartItem->sum; ?></td>
+                    <td><?= $cartItem['product_id']; ?></td>
+                    <td><?= $cartItem['name']; ?></td>
+                    <td><?= $img ?></td>
+                    <td><?= Yii::$app->formatter->asCurrencyWithDivision($cartItem['price']); ?></td>
+                    <td><?= $cartItem['quantity']; ?></td>
+                    <td><?= Yii::$app->formatter->asCurrencyWithDivision($cartItem['sum']); ?></td>
                     <td><?= Html::a('Delete',
-                            ['cart/delete', 'id' => $cartItem->id],
+                            ['cart/delete'],
                             [
-                                'class' => 'btn btn-outline-danger btn-sm',
-                                'data-method' => 'post',
-                                'data-confirm' => 'Do you really want to delete this item?'
+                                'class' => 'btn btn-outline-danger btn-sm delete-from-cart-btn',
+                                'data-key' => $cartItem['product_id'],
                             ]
                         ) ?>
                     </td>
@@ -48,6 +53,15 @@ use yii\helpers\Html;
         <div class="card-body float-right">
             <?= Html::a('Checkout', ['cart/checkout'], ['class' => 'btn btn-primary']) ?>
         </div>
-
+        <?php else: ?>
+            <div class="card-header">
+                <div>
+                    <h3>В вашей корзине пока ничего нет</h3>
+                    <div>Корзина ждет, что ее наполнят. Желаем приятных покупок!</div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
+
+
 </div>
