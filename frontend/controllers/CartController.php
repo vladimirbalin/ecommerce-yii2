@@ -21,7 +21,7 @@ class CartController extends \yii\web\Controller
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
                 ],
-                'only' => ['add', 'delete'],
+                'only' => ['add', 'delete', 'change-quantity'],
             ]
         ];
     }
@@ -113,5 +113,47 @@ class CartController extends \yii\web\Controller
             Yii::$app->session->set(CartItem::SESSION_KEY, $cartItems);
         }
         return $this->redirect(['cart/index']);
+    }
+
+    public function actionChangeQuantity()
+    {
+        $id = Yii::$app->request->post('id');
+        $quantity = Yii::$app->request->post('quantity');
+
+        if (!Yii::$app->user->isGuest) {
+            $cartItem = CartItem::find()->productId($id)->one();
+            $cartItem->quantity = $quantity;
+            $sum = Yii::$app->formatter->asCurrency(
+                $cartItem->quantity
+                * Yii::$app->formatter->asPriceWithDivision($cartItem->product->price)
+            );
+            if ($cartItem->save()) {
+                return ['totalPrice' => $sum, 'cartQuantity' => \common\models\CartItem::getCartItemsQuantitySum()];
+            }
+        } else {
+            $cartItems = Yii::$app->session->get(CartItem::SESSION_KEY, []);
+            $existingItem = array_filter($cartItems, function ($item) use ($id) {
+                return $item['product_id'] === (int)$id;
+            });
+            $keyOfExistingItem = array_key_first($existingItem);
+
+            if (isset($existingItem[$keyOfExistingItem])) {
+                $item = $existingItem[$keyOfExistingItem];
+                $item['quantity'] = $quantity;
+
+                $sum = Yii::$app->formatter->asCurrency(
+                    $item['quantity']
+                    * Yii::$app->formatter->asPriceWithDivision($item['price'])
+                );
+                $cartItems[$keyOfExistingItem] = $item;
+                Yii::$app->session->set(CartItem::SESSION_KEY, $cartItems);
+                
+                return [
+                    'totalPrice' => $sum,
+                    'cartQuantity' => \common\models\CartItem::getCartItemsQuantitySum()
+                ];
+            }
+
+        }
     }
 }

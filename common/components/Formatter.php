@@ -10,4 +10,9 @@ class Formatter extends \yii\i18n\Formatter
     {
         return $this->asCurrency($value / 100);
     }
+
+    public function asPriceWithDivision($value): string
+    {
+        return $value / 100;
+    }
 }

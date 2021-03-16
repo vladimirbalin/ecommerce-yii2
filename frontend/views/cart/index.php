@@ -27,17 +27,26 @@ use yii\helpers\Html;
             </thead>
             <tbody>
             <?php foreach ($cartItems as $cartItem): ?>
+                <?php $unitPrice = Yii::$app->formatter->asPriceWithDivision($cartItem['price']) ?>
+                <?php $unitPriceLabel = Yii::$app->formatter->asCurrencyWithDivision($cartItem['price']) ?>
+                <?php $totalPrice = Yii::$app->formatter->asCurrencyWithDivision($cartItem['sum']) ?>
+            
                 <?php $img = $cartItem['image']
                     ? Html::img('@frontendUrl/upload/product/' . $cartItem['product_id'] . "/" . $cartItem['image'], ['height' => 100, 'weight' => 100])
                     : Html::img('@frontendUrl/img/no-image.png', ['height' => 100, 'weight' => 100]);
                 ?>
-                <tr>
+                <tr data-key="<?= $cartItem['product_id'] ?>" data-unit-price="<?= $unitPrice ?>">
                     <td><?= $cartItem['product_id']; ?></td>
                     <td><?= $cartItem['name']; ?></td>
                     <td><?= $img ?></td>
-                    <td><?= Yii::$app->formatter->asCurrencyWithDivision($cartItem['price']); ?></td>
-                    <td><?= $cartItem['quantity']; ?></td>
-                    <td><?= Yii::$app->formatter->asCurrencyWithDivision($cartItem['sum']); ?></td>
+                    <td><?= $unitPriceLabel; ?></td>
+                    <td><?= Html::button('-', ['class' => 'decrease-btn']) ?>
+
+                        <?= Html::input('number', 'quantity', $cartItem['quantity'], [
+                            'style' => 'width:40px', 'min' => 1,'max' => 1000, 'class' => 'input-prod-quantity']) ?>
+
+                        <?= Html::button('+', ['class' => 'increase-btn']) ?></td>
+                    <td><?= $totalPrice; ?></td>
                     <td><?= Html::a('Delete',
                             ['cart/delete'],
                             [
