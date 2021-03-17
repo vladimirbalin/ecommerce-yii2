@@ -17,7 +17,6 @@ $(function () {
             method: 'post',
             data: {id},
             success: function ($res) {
-                console.log($res);
                 quantitySum.text(parseInt(quantitySum.text() || 0) + 1);
             },
             error: function ($res) {
