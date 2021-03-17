@@ -6,14 +6,9 @@ namespace frontend\controllers;
 
 use common\models\CartItem;
 use common\models\Product;
-use http\Exception\BadHeaderException;
 use Yii;
-use yii\filters\ContentNegotiator;
 use yii\filters\VerbFilter;
-use yii\web\NotAcceptableHttpException;
 use yii\web\NotFoundHttpException;
-use yii\web\Response;
-use yii\web\TooManyRequestsHttpException;
 
 class CartController extends \yii\web\Controller
 {
